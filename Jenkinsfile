@@ -10,7 +10,8 @@ pipeline {
 
         stage('Build and Deploy') {
             steps {
-                sh 'bash /var/lib/jenkins/workspace/devops-pipeline/deploy.sh'
+                sh 'chmod +x deploy.sh'
+                sh 'bash deploy.sh'
             }
         }
     }
