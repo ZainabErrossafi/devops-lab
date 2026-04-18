@@ -16,8 +16,10 @@ pipeline {
 
         stage('Deploy Kubernetes') {
             steps {
+                sh 'minikube image load webapp:latest'
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl apply -f service.yaml'
+                sh 'kubectl rollout restart deployment webapp'
             }
         }
     }
