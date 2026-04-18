@@ -21,6 +21,7 @@ pipeline {
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl apply -f service.yaml'
                 sh 'kubectl rollout restart deployment webapp'
+                sh 'kubectl rollout status deployment webapp'
             }
         }
     }
