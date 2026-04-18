@@ -10,10 +10,13 @@ pipeline {
 
         stage('Build Docker') {
             steps {
-                sh '''
-                    eval $(minikube docker-env)
-                    docker build -t webapp:latest .
-                '''
+                sh 'docker build -t webapp:latest .'
+            }
+        }
+
+        stage('Push to Minikube') {
+            steps {
+                sh 'docker save webapp:latest | (eval $(minikube docker-env) && docker load)'
             }
         }
 
