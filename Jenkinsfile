@@ -8,20 +8,9 @@ pipeline {
             }
         }
 
-        stage('Build Docker') {
+        stage('Build and Deploy') {
             steps {
-                sh 'docker build -t webapp:latest .'
-                sh 'docker save -o /tmp/webapp.tar webapp:latest'
-            }
-        }
-
-        stage('Deploy Kubernetes') {
-            steps {
-                sh '/usr/local/bin/minikube image load /tmp/webapp.tar'
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply -f service.yaml'
-                sh 'kubectl rollout restart deployment webapp'
-                sh 'kubectl rollout status deployment webapp'
+                sh 'bash /var/lib/jenkins/workspace/devops-pipeline/deploy.sh'
             }
         }
     }
